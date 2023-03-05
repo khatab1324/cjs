@@ -33,7 +33,6 @@ window.addEventListener("keyup", function (e) {
   }
   if (isTouching(player, coin)) moveCoin();
 });
-
 const extractPosition = (position) => {
   if (!position) {
     player.style.top = "100px";
