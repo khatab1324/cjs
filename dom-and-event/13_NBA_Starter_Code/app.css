@@ -1,0 +1,6 @@
+.win {
+    background-color: rgb(0, 255, 0);
+}
+.loss{
+    background-color: rgba(255, 8, 0, 0.674);
+}
