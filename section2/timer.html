@@ -6,23 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>timer</title>
     <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
   </head>
   <body>
-    <svg height="360" width="360">
-      <circle
-        r="170"
-        cx="180"
-        cy="180"
-        fill="transparent"
-        stroke="rgb(40, 255, 4)"
-        stroke-width="12"
-        transform="rotate(-90 180 180)"
-      />
-    </svg>
-    <div id="contaner">
-      <input id="duration" type="text" value="30" />
-      <button id="start" type="">start</button>
-      <button id="pause">pause</button>
+    <div class="timer">
+      <div class="container">
+        <input id="duration" type="text" value="30" />
+        <div>
+          <button id="start" type="">
+            <i class="fa-sharp fa-solid fa-circle-play"></i>
+          </button>
+          <button id="pause"><i class="fa-solid fa-pause"></i></button>
+        </div>
+      </div>
+      <svg height="360" width="360">
+        <circle
+          r="170"
+          cx="180"
+          cy="180"
+          fill="transparent"
+          stroke="rgb(40, 255, 4)"
+          stroke-width="12"
+          transform="rotate(-90 180 180)"
+        />
+      </svg>
     </div>
 
     <script src="classtimer.js"></script>

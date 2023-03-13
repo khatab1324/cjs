@@ -15,10 +15,10 @@ class Timer {
   }
   start = () => {
     this.tick();
-    this.tinterval = setInterval(this.tick, 50);
+    this.tinterval = setInterval(this.tick, 10);
     if (this.onStart) {
       //you check if there onStart because rememeber it is optional ,if there is no callbacks and you don't provide check it will give you error becuase it not deffine
-      this.onStart();
+      this.onStart(this.timeRemaining);
     }
     // clearInterval(timer);
   };
@@ -36,14 +36,14 @@ class Timer {
         this.onComplete();
       }
     } else {
-      this.timeRemaining = timeRemaining - 0.05; // becuse set timeRemaining(time) , and remember timeRemaining is a function watch epsoede 207
+      this.timeRemaining = timeRemaining - 0.01; // becuse set timeRemaining(time) , and remember timeRemaining is a function watch epsoede 207
     }
     if (this.onTick) {
-      this.onTick();
+      this.onTick(this.timeRemaining);
     }
     if (timeRemaining === 10) {
       if (this.onAlmostComplete) {
-        this.onAlmostComplete();
+        this.onAlmostComplete(this.timeRemaining);
       }
     }
   };
