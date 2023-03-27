@@ -35,7 +35,7 @@ createAutoComplete({
   onOptionSelect(movie) {
     // when I select the movie the h1 will hidden
     document.querySelector(".tutorial").classList.add("is-hidden");
-    onMovieSelect(movie, document.querySelector("#left-summary")); //I do that becuase it geve you more control
+    onMovieSelect(movie, document.querySelector("#left-summary"), "left"); //I do that becuase it geve you more control
   },
 });
 
@@ -47,6 +47,6 @@ createAutoComplete({
   root: document.querySelector("#right-autocomplete"),
   onOptionSelect(movie) {
     document.querySelector(".tutorial").classList.add("is-hidden");
-    onMovieSelect(movie, document.querySelector("#right-summary"));
+    onMovieSelect(movie, document.querySelector("#right-summary"), "right");
   },
 });
