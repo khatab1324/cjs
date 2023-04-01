@@ -1,6 +1,40 @@
+body{
+	margin: 0;
+	
+}
 img {
 	width: 35px;
 	position: absolute;
 	top: 100px;
+	left: 10px;
+	
+}
+
+.hidden{
+	display: none !important;
+}
+h1{
+	color :aqua;
+	font-size:45px;
+}
+.winner{
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	z-index: 1;
+	height: 100vh;
+	width:100vw;
+}
+.cont{
+	display:flex inline-block;
+	justify-content: center;
+	align-items:center;
+
+}
+.button{
+	display: flex;
+	position:relative;
 	left: 10px;
 }

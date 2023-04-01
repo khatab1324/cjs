@@ -7,15 +7,30 @@
     <title>maze</title>
     <link rel="stylesheet" href="maze.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css"
+    />
   </head>
   <body>
     <!-- <img
       id="player"
       src="https://media.tenor.com/images/0791eb3858075aca85eed5ecfe08c778/tenor.gif"
       alt=""
-    /> -->
-    <img id="my-image" src="img.png" />
+     /> -->
+    <div class="winner hidden">
+      <div class="cont">
+        <h1>you win in level one</h1>
+        <button class="button" id="next">next level</button>
+      </div>
+    </div>
+
+    <script src="shuffleArray.js"></script>
+
+    <script src="moveThroughCellandchick.js"></script>
     <script src="maze.js"></script>
+    <!-- <script src="draw.js"></script> -->
+    <script src="nextlevel.js"></script>
     <!-- <script src="player.js"></script> -->
   </body>
 </html>

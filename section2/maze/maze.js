@@ -1,21 +1,35 @@
-const { World, Engine, Render, Runner, Bodies } = Matter;
-
+const { Engine, Render, Runner, World, Bodies, Body, Events } = Matter;
 const engine = Engine.create(); //if you call engine you find world
 const { world } = engine; //its same Matter.Engine.create().world
 
-//i make the width and hight here to use them latter
+const getItemFromLocalStorage = () => {
+  let cellsx = window.localStorage.getItem("cellsx");
+  let cellsy = window.localStorage.getItem("cellsy");
+  if (!cellsx) cellsx = 1;
+  if (!cellsy) cellsy = 1;
+  return [parseInt(cellsx), parseInt(cellsy)];
+};
 
-const cells = 10;
-const width = 600;
-const hight = 600;
-const unitLength = width / cells;
+//i make the width and height here to use them latter
+const nextlevel = document.querySelector("#next");
+const [cellsx, cellsy] = getItemFromLocalStorage();
+
+const horizontalCells = cellsx ?? 5;
+const verticalcells = cellsy ?? 5;
+console.log(cellsx);
+console.log(cellsy);
+
+const width = window.innerWidth;
+const height = window.innerHeight;
+const unitLengthX = width / horizontalCells;
+const unitLengthY = height / verticalcells;
 const render = Render.create({
   element: document.body,
   engine: engine,
   options: {
-    wireframes: true, //it give the colors for the shapes
+    wireframes: false, //it give the colors for the shapes
     width,
-    hight,
+    height,
   },
 }); //if you call it you will find element:null but we need it in our HTML also engine: undefined,
 Render.run(render);
@@ -24,93 +38,32 @@ Runner.run(Runner.create(), engine);
 //walls
 const walls = [
   Bodies.rectangle(width / 2, 0, width, 2, { isStatic: true }),
-  Bodies.rectangle(width / 2, hight, width, 2, { isStatic: true }),
-  Bodies.rectangle(0, hight / 2, 2, hight, { isStatic: true }),
-  Bodies.rectangle(width, hight / 2, 2, hight, { isStatic: true }),
+  Bodies.rectangle(width / 2, height, width, 2, { isStatic: true }),
+  Bodies.rectangle(0, height / 2, 2, height, { isStatic: true }),
+  Bodies.rectangle(width, height / 2, 2, height, { isStatic: true }),
 ];
 
 World.add(world, walls); //you add walls to world
 
 // maze genration
 
-// this will shuffle all the cells neighbor and start with random order like left,up,down,right or up left rihgt down its random
-const shuffleArray = (arr) => {
-  let counter = arr.length;
-  while (counter > 0) {
-    const index = Math.floor(Math.random() * counter);
-    counter--;
-    const temp = arr[counter];
-    arr[counter] = arr[index];
-    arr[index] = temp;
-  }
-  return arr;
-};
-
-const grid = Array(cells)
+const grid = Array(horizontalCells) //watch 299
   .fill("anythingbecuasewillreplace")
-  .map((c) => Array(cells).fill(false)); //Array => make arrray have 3 emdey element and you use fill to put what the value you want
+  .map((c) => Array(verticalcells).fill(false)); //Array => make arrray have 3 emdey element and you use fill to put what the value you want
 // you can't do this const grid = Array(3).fill([false,false,false]) whatch 277 6:00
-const verticals = Array(cells)
+const verticals = Array(horizontalCells - 1)
   .fill(false)
-  .map((c) => Array(cells - 1).fill(false));
+  .map((c) => Array(verticalcells).fill(false));
 
-const horizontals = Array(cells - 1)
+const horizontals = Array(verticalcells - 1)
   .fill(false)
-  .map((c) => Array(cells).fill(false));
+  .map((c) => Array(horizontalCells).fill(false));
 
-const startRow = Math.floor(Math.random() * cells);
-const startColumn = Math.floor(Math.random() * cells);
+const startRow = Math.floor(Math.random() * verticalcells);
+const startColumn = Math.floor(Math.random() * horizontalCells);
+console.log(startRow);
+console.log(startColumn);
 
-const moveThroughCellAndChick = (row, column) => {
-  // if i have visited the cell at [row,column] return
-  if (grid[row][column]) {
-    return;
-  }
-  //Mark this cell as being visited
-  grid[row][column] = true;
-  //Assemble randomly-ordered list of neighbors
-  const neighbors = shuffleArray([
-    [row - 1, column, "up"],
-    [row + 1, column, "down"],
-    [row, column - 1, "left"],
-    [row, column + 1, "right"],
-  ]);
-  console.log(neighbors);
-  //for each neighbor ....
-  for (let neighbor of neighbors) {
-    //here I will make destractur
-    const [nextRow, nextColumn, direction] = neighbor;
-    //see if the nighbor is out of the bounds
-    if (
-      nextRow < 0 ||
-      nextRow >= cells ||
-      nextColumn < 0 ||
-      nextColumn >= cells
-    ) {
-      continue; //continue is tell you donot leave the loop but in other hand donot run the rest code just move for the next array
-    }
-    //if we visited that nighbor continue to the next nighbor
-    if (grid[nextRow][nextColumn]) {
-      continue;
-    }
-
-    //remove the wall from  either horizontals or verticals
-    if (direction === "left") {
-      verticals[row][column - 1] = true;
-    }
-    if (direction === "right") {
-      verticals[row][column] = true;
-    }
-    if (direction === "up") {
-      horizontals[row - 1][column] = true;
-    }
-    if (direction === "down") {
-      horizontals[row][column] = true;
-    }
-    moveThroughCellAndChick(nextRow, nextColumn);
-  }
-  //visit that next cell
-};
 moveThroughCellAndChick(startRow, startColumn);
 
 // drow the maze
@@ -121,11 +74,15 @@ horizontals.forEach((row, rowIndex) => {
       return;
     } else {
       const wall = Bodies.rectangle(
-        columnIndex * unitLength + unitLength / 2, //because the length start from center
-        rowIndex * unitLength + unitLength,
-        unitLength,
-        2,
-        { isStatic: true }
+        columnIndex * unitLengthX + unitLengthX / 2, //because the length start from center
+        rowIndex * unitLengthY + unitLengthY,
+        unitLengthX,
+        5,
+        {
+          isStatic: true,
+          label: "wall",
+          render: { fillStyle: "red" },
+        }
       );
       World.add(world, wall);
     }
@@ -138,12 +95,18 @@ verticals.forEach((row, rowIndex) => {
       return;
     } else {
       const wall = Bodies.rectangle(
-        columnIndex * unitLength + unitLength,
-        rowIndex * unitLength + unitLength / 2,
+        columnIndex * unitLengthX + unitLengthX,
+        rowIndex * unitLengthY + unitLengthY / 2,
 
-        2,
-        unitLength,
-        { isStatic: true }
+        5,
+        unitLengthY,
+        {
+          isStatic: true,
+          label: "wall",
+          render: {
+            fillStyle: "red",
+          },
+        }
       );
       World.add(world, wall);
     }
@@ -152,28 +115,126 @@ verticals.forEach((row, rowIndex) => {
 
 //goal
 const goal = Bodies.rectangle(
-  width - unitLength / 2,
-  hight - unitLength / 2,
-  unitLength * 0.8,
-  unitLength * 0.8,
-  { isStatic: true }
+  width - unitLengthX / 2,
+  height - unitLengthY / 2,
+  unitLengthX * 0.8,
+  unitLengthY * 0.8,
+  {
+    label: "goal",
+    isStatic: true,
+
+    render: {
+      fillStyle: "rgb(54, 243, 11)",
+      sprite: {
+        texture:
+          "https://media.istockphoto.com/id/931155784/photo/large-wooden-door-open-in-castle-wall.jpg?s=1024x1024&w=is&k=20&c=XYshycuCWOYKYTFleTF07cM-ICWl9VbBbngmEZagGtc=",
+        xScale: unitLengthX * 0.0009,
+        yScale: unitLengthY * 0.0012,
+      },
+    },
+    options: {
+      wireframes: false,
+    },
+  }
 );
 World.add(world, goal);
 
 //ball
-const ball = Bodies.rectangle(
+
+const ballRadius = Math.min(unitLengthX, unitLengthY) / 4;
+const ball = Bodies.circle(unitLengthX / 2, unitLengthY / 2, ballRadius, {
+  label: "ball",
+});
+ball.restitution = 0;
+World.add(world, ball);
+
+const sprint = Bodies.rectangle(
   Math.random() * width,
-  Math.random() * hight,
-  (width / cells) * 0.8,
-  (width / cells) * 0.8,
+  Math.random() * height,
+  (width / horizontalCells) * 0.8,
+  (height / verticalcells) * 0.8,
   {
+    label: "sprint",
     options: {
       wireframes: false,
     },
     render: {
-      fillStyle: "green",
+      sprite: {
+        texture:
+          "http://aqwwiki.wdfiles.com/local--files/use-items/ClassBoost.png",
+        xScale: unitLengthX * 0.0025,
+        yScale: unitLengthY * 0.0025,
+      },
+      fillStyle: "red",
     },
   }
 );
 
-World.add(world, ball);
+World.add(world, sprint);
+
+//move the player
+let { x, y } = ball.velocity;
+document.addEventListener("keydown", (e) => {
+  moveing(e, 2);
+});
+world.gravity.y = 0;
+
+// win condition
+
+Events.on(engine, "collisionStart", (event) => {
+  event.pairs.forEach((collision) => {
+    console.log(collision);
+    const labelwin = ["ball", "goal"];
+    if (
+      labelwin.includes(collision.bodyA.label) &&
+      labelwin.includes(collision.bodyB.label)
+    ) {
+      increaseCells();
+      document.querySelector(".winner").classList.remove("hidden");
+      world.gravity.y = 1;
+      world.bodies.forEach((body) => {
+        if (body.label === "wall") {
+          Body.setStatic(body, false);
+        }
+      });
+    }
+
+    //
+
+    //
+
+    const lebelboost = ["ball", "sprint"];
+    if (
+      lebelboost.includes(collision.bodyA.label) &&
+      lebelboost.includes(collision.bodyB.label)
+    ) {
+      World.remove(world, sprint);
+      console.log("you fast");
+      if (horizontalCells > 10) {
+        document.addEventListener("keydown", (e) => {
+          moveing(e, 3);
+        });
+      }
+      if (horizontalCells <= 10) {
+        document.addEventListener("keydown", (e) => {
+          moveing(e, 5);
+        });
+      }
+    }
+  });
+});
+const moveing = (e, i) => {
+  if (e.key === "ArrowDown" || e.key === "s") {
+    console.log("down");
+    Body.setVelocity(ball, { x, y: y + i });
+  } else if (e.key === "ArrowUp" || e.key === "w") {
+    console.log("Up");
+    Body.setVelocity(ball, { x, y: y - i });
+  } else if (e.key === "ArrowRight" || e.key === "d") {
+    console.log("Right");
+    Body.setVelocity(ball, { x: x + i, y: y });
+  } else if (e.key === "ArrowLeft" || e.key === "a") {
+    console.log("left");
+    Body.setVelocity(ball, { x: x - i, y: y });
+  }
+};
