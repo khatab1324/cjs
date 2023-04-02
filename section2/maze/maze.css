@@ -14,6 +14,9 @@ img {
 	display: none !important;
 }
 h1{
+	display: flex;
+	position: relative;
+	left: 35px;
 	color :aqua;
 	font-size:45px;
 }

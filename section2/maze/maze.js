@@ -19,6 +19,7 @@ const verticalcells = cellsy ?? 5;
 console.log(cellsx);
 console.log(cellsy);
 
+const newGame = document.querySelector("#newGame");
 const width = window.innerWidth;
 const height = window.innerHeight;
 const unitLengthX = width / horizontalCells;
@@ -239,12 +240,15 @@ const moveing = (e, i) => {
   }
 };
 function increaseCells() {
-  let addCellsX = window.localStorage.setItem("cellsx", cellsx + 3);
-  let addCellsY = window.localStorage.setItem("cellsy", cellsy + 3);
+  let addCellsX = localStorage.setItem("cellsx", cellsx + 3);
+  let addCellsY = localStorage.setItem("cellsy", cellsy + 3);
 }
 
 nextlevel.addEventListener("click", (event) => {
-  // getItemFromLocalStorage();
-  // const [cellsx, cellsy] = getItemFromLocalStorage();
+  location.reload();
+});
+newGame.addEventListener("click", (event) => {
+  console.log("fuck me");
+  localStorage.clear();
   location.reload();
 });
