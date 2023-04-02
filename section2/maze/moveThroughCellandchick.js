@@ -45,6 +45,7 @@ const moveThroughCellAndChick = (row, column) => {
       horizontals[row][column] = true;
     }
     console.log(nextColumn);
+
     moveThroughCellAndChick(nextRow, nextColumn);
   }
   //visit that next cell

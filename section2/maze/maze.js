@@ -5,8 +5,8 @@ const { world } = engine; //its same Matter.Engine.create().world
 const getItemFromLocalStorage = () => {
   let cellsx = window.localStorage.getItem("cellsx");
   let cellsy = window.localStorage.getItem("cellsy");
-  if (!cellsx) cellsx = 1;
-  if (!cellsy) cellsy = 1;
+  if (!cellsx) cellsx = 4;
+  if (!cellsy) cellsy = 3;
   return [parseInt(cellsx), parseInt(cellsy)];
 };
 
@@ -238,3 +238,13 @@ const moveing = (e, i) => {
     Body.setVelocity(ball, { x: x - i, y: y });
   }
 };
+function increaseCells() {
+  let addCellsX = window.localStorage.setItem("cellsx", cellsx + 3);
+  let addCellsY = window.localStorage.setItem("cellsy", cellsy + 3);
+}
+
+nextlevel.addEventListener("click", (event) => {
+  // getItemFromLocalStorage();
+  // const [cellsx, cellsy] = getItemFromLocalStorage();
+  location.reload();
+});
