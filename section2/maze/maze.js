@@ -18,6 +18,9 @@ const horizontalCells = cellsx ?? 5;
 const verticalcells = cellsy ?? 5;
 console.log(cellsx);
 console.log(cellsy);
+let level = document.querySelector(".level");
+let textLevel = document.querySelector(".textLevel");
+let score = document.querySelector(".score");
 
 const newGame = document.querySelector("#newGame");
 const width = window.innerWidth;
@@ -181,6 +184,10 @@ document.addEventListener("keydown", (e) => {
 world.gravity.y = 0;
 
 // win condition
+const levelNumber = () => {
+  textLevel.localStorage.setItem("textLevel", "here i am");
+  textLevel.innerHTML = textLevel;
+};
 
 Events.on(engine, "collisionStart", (event) => {
   event.pairs.forEach((collision) => {
@@ -246,6 +253,7 @@ function increaseCells() {
 
 nextlevel.addEventListener("click", (event) => {
   location.reload();
+  levelNumber();
 });
 newGame.addEventListener("click", (event) => {
   console.log("fuck me");

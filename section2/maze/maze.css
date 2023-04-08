@@ -9,6 +9,15 @@ img {
 	left: 10px;
 	
 }
+.level{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	z-index: 1;
+	height: 10vh;
+	width:50vw;
+}
 
 .hidden{
 	display: none !important;

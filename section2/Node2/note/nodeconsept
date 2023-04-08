@@ -1,0 +1,21 @@
+//  if you want to shere value between tow file use module.exports= 'hi'
+// ...and require(path file )in the file you want to shere the code
+
+// when we call function from onther file , we not directly executing the code there alot of
+// ...happen in behind the seen its like this
+
+// function(exports,require,module,__filename,__dirname){the code that invoked the function}
+// you will find the explenation in 316
+
+//////////when you exporte
+//when you export file it going to riquire cache  before going to that file is call it 317
+
+// --------------------- CLI debugger Commands
+// c -> continue execution until program ends or next debugger statement
+// n -> RUN the next line of code
+// s -> step in to a function
+// o -> step out of the current function
+//repl -> is essentially going to start up an execution
+
+//----------------------------------- libary of node
+// the name of libary is not excpted for that you should read some doce and know how to write them
