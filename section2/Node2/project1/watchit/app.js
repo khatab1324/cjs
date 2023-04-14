@@ -5,7 +5,8 @@ const debounce = require("lodash.debounce");
 const chalk = require("chalk");
 const program = require("caporal"); //we call it program because we will reseve object that represent to program
 const fs = require("fs");
-const fsPromises = fs.pzromises;
+const fsPromises = fs.promises;
+const { spawn } = require("child_process");
 
 program
   .version("1.0.0")
@@ -16,15 +17,20 @@ program
 
   .action(async ({ filename }) => {
     //its the same of arge.filename
-    const name = filename ?? "app.js";
+    const name = filename || "app.js";
 
     try {
       await fsPromises.access(name);
     } catch {
       throw new Error(`I so sorry I can't find file have name ${name}`);
     }
+    let proc;
     //debouce(func,delay)//342 watch it ,its hard to read the ducmentation
     const start = debounce(() => {
+      if (proc) {
+        proc.kill();
+      }
+      proc = spawn("node", [name], { stdio: "inherit" });
       console.log(chalk.green("start!!!"));
     }, 100);
 
@@ -35,7 +41,7 @@ program
     chokidar
       .watch(".")
       .on("add", start) //it can't call start more than once in 100 mls because that start!!! shown you just one but all the files are added
-      .on("change", () => console.log("File Change"))
+      .on("change", start)
       .on("unlink", moveFile);
   });
 
