@@ -34,6 +34,7 @@ class UsersRepositories {
     records.push(attrs); //push the new file
 
     await this.writeAll(records);
+    return attrs;
   }
 
   async writeAll(records) {
@@ -81,4 +82,4 @@ class UsersRepositories {
     }
   }
 }
-module.exports = new UsersRepositories("./users.json");
+module.exports = new UsersRepositories("users.json");
