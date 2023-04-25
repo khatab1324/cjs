@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cookieSession = require("cookie-session");
-const UsersRepo = require("../repositories/users");
 const authRouter = require("../adimin-pages/auth");
 const app = express();
 
@@ -53,6 +52,6 @@ app.get("/sign-up", (req, res) => {
 
 //we will use laibary that do the same thing above
 
-app.listen(2000, () => {
+app.listen(3000, () => {
   console.log("ah i listening");
 });

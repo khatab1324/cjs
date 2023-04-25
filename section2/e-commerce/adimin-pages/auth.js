@@ -1,6 +1,11 @@
 const express = require("express");
+const { check, validationResult } = require("express-validator");
 const UsersRepo = require("../repositories/users.js");
-const test = require();
+const {
+  requireEmail,
+  requirePassword,
+  requirePasswordConfirmatio,
+} = require("./validator.js");
 const router = express.Router(); //it rether than app but it track the app
 // ---------------------------------sign in-------------------------------
 
@@ -27,24 +32,28 @@ router.post("/sign-in", async (req, res) => {
 
 // ---------------------------------------sgin-up-------------------------------------
 
-router.post("/sign-up", async (req, res) => {
-  //get access to email,confirmPassword,password
-  const { email, password, passwordConfirmation, username } = req.body;
-  const existingUser = await UsersRepo.getOneBy({ email });
-  if (existingUser) {
-    return res.send("email already exist");
-  }
-  if (!password || !email || !passwordConfirmation || !username) {
-    console.log("user not fill all info");
-    return res.send("pls fill all the info ^__^");
-  }
-  // create a user in our user repo  to represent this person
-  const user = await UsersRepo.create({ email, password, username });
+router.post(
+  "/sign-up",
+  [requireEmail, requirePassword, requirePasswordConfirmatio],
+  async (req, res) => {
+    const errors = validationResult(req);
+    console.log(errors);
+    //get access to email,confirmPassword,password
+    const { email, password, passwordConfirmation, username } = req.body;
 
-  // Store the id of that user inside the user cookie
-  req.session.userId = user.id; //Added by cookie session! //and userId can be any thing like idOfPrsonThatMakingReq and that id will go to browser and save this id in cookie
-  res.sendFile(__dirname + "/" + "welcome.html");
-});
+    if (!password || !email || !passwordConfirmation || !username) {
+      console.log("user not fill all info");
+      return res.send("plz fill all the info ^__^");
+    }
+
+    // create a user in our user repo  to represent this person
+    const user = await UsersRepo.create({ email, password, username });
+
+    // Store the id of that user inside the user cookie
+    req.session.userId = user.id; //Added by cookie session! //and userId can be any thing like idOfPrsonThatMakingReq and that id will go to browser and save this id in cookie
+    res.sendFile(__dirname + "/" + "welcome.html");
+  }
+);
 // ------------------------------------sgin out ------------------------
 router.get("/signout ", (req, res) => {
   req.session = null;
