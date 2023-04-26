@@ -22,12 +22,6 @@ app.get("/", (req, res) => {
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/" + "navbar.css"); //uplaod the file
 });
-app.get("/sign-in", (req, res) => {
-  res.sendFile(__dirname + "/" + "sign-in.html"); //uplaod the file
-});
-app.get("/sign-up", (req, res) => {
-  res.sendFile(__dirname + "/" + "sign-up.html");
-});
 
 // this to collect all the data before use any one of them
 // const bodyParser = (req, res, next) => {

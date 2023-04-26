@@ -1,6 +1,8 @@
 const express = require("express");
 const { check, validationResult } = require("express-validator");
 const UsersRepo = require("../repositories/users.js");
+const signupTemplate = require("../views/admin/auth/sign-up.js");
+const signinTemplate = require("../views/admin/auth/sign-in.js");
 const {
   requireEmail,
   requirePassword,
@@ -9,6 +11,9 @@ const {
 const router = express.Router(); //it rether than app but it track the app
 // ---------------------------------sign in-------------------------------
 
+router.get("/sign-in", (req, res) => {
+  res.send(signinTemplate()); //uplaod the file
+});
 router.post("/sign-in", async (req, res) => {
   const { email, password } = req.body;
   const user = await UsersRepo.getOneBy({ email });
@@ -31,13 +36,17 @@ router.post("/sign-in", async (req, res) => {
 });
 
 // ---------------------------------------sgin-up-------------------------------------
-
+router.get("/sign-up", (req, res) => {
+  res.send(signupTemplate({ req }));
+});
 router.post(
   "/sign-up",
   [requireEmail, requirePassword, requirePasswordConfirmatio],
   async (req, res) => {
     const errors = validationResult(req);
-    console.log(errors);
+    if (!errors.isEmpty) {
+      return res;
+    }
     //get access to email,confirmPassword,password
     const { email, password, passwordConfirmation, username } = req.body;
 
