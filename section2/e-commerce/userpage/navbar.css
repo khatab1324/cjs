@@ -59,14 +59,14 @@ body{
     
     font-size: 30px;
     text-decoration: none;
-    color: rgb(47, 86, 125);
+    color: #2f6294;
     padding: 10px;
 }
 .sign:hover
 {
-    
+
     border-radius: 15px;
-    background-color: rgb(0, 166, 255);
+    background-color: #00a6ff;
     transition: background-color 0.7s ;
 }   
 .sign-in:hover{

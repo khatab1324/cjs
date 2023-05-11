@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieSession = require("cookie-session");
 const authRouter = require("../adimin-pages/auth");
+const productsRouter = require("../adimin-pages/products");
+const adminPage = require("../adimin-pages/adminPage");
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true })); // here the laibary
@@ -11,8 +13,10 @@ app.use(
   })
 );
 app.use(authRouter); //this to use router that we add to auth.js file
+app.use(productsRouter); //this to use router that we add to products.js file
+app.use(adminPage);
 app.use(express.static(__dirname)); //to use dirname
-// app.use(express.static("public"));
+app.use(express.static("public"));
 // app.use(express.static("files"));
 
 // ---------------------------- main page -----------------------
