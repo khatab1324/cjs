@@ -31,15 +31,11 @@ module.exports = class Repositories {
     // now i want to crypto the password
     // here the link for more info https://nodejs.org/docs/latest-v12.x/api/crypto.html#crypto_crypto_scrypt_password_salt_keylen_options_callback
 
-    const salt = crypto.randomBytes(8).toString("hex"); // the number 8 is for long char
-    const hashed = await scrypt(attrs.password, salt, 64); //the name hashed is not clear because password+slat it equil hashed but I will but it like this to not confiused
-
     const records = await this.getAll();
-    const record = { ...attrs, password: `${hashed.toString("hex")}.${salt}` }; // ...attrs mean sprid the proparty in object and overwrite password over them
-    records.push(record); //push the new file
+    records.push(attrs); //push the new file
 
     await this.writeAll(records);
-    return record; //to get the id and use it
+    return attrs; //to get the id and use it
   }
   async comparePassword(saved, supplied) {
     // saved -> password saved in our data base "hashed.salt"

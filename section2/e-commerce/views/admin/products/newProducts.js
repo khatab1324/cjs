@@ -10,7 +10,7 @@ const getError = (errors, prop) => {
     return "";
   }
 };
-module.exports = (errors) => {
+module.exports = ({ errors }) => {
   return layout({
     content: `
     <!DOCTYPE html>
@@ -98,11 +98,17 @@ module.exports = (errors) => {
   <body>
     <div class="container">
       <h1>Add Product</h1>
-      <form method="POST">
+      <form method="POST" enctype='multipart/form-data'>
         <label for="product-name">Product Name:</label>
-        <input type="text" id="product-name" name="product-name">
+        <input type="text" id="productName" name="productName">
+               <p class="help is-danger"> ${getError(
+                 errors,
+                 "productName"
+               )} </p>
+
         <label for="product-price">Price:</label>
-        <input type="number" id="product-price" name="product-price" >
+        <input type="number" id="productPrice" name="productPrice" >
+         <p class="help is-danger">${getError(errors, "productPrice")}</p>
         <label for="product-image">Add Image:</label>
         <input  id="product-image" name="product-image"type="file">
         <input type="submit" value="Add Product">

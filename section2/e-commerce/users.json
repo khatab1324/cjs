@@ -34,5 +34,11 @@
     "password": "488c03ffaca928144212836155d7d729d9fcbb28eee7c32325bfa677ae4cf4bbebb59056733ef0d13ec65493f3867eb69c126845565c687c48613d79708b44f9.0dc69251b679be05",
     "username": "admin",
     "id": "de5d3e3e"
+  },
+  {
+    "email": "test@test.com",
+    "password": "51e0e0c0ec4c41daeca3c33e9a2d600a0d1603512c9dc7dd8b960cd614e18762a9b7ef7b1c7931c6b799c872ce9ff505d96d2256e400d768e4c0797b4fab6b46.f492fe2bf9732bee",
+    "username": "ks",
+    "id": "8e6b8f2c"
   }
 ]

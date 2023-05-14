@@ -1,5 +1,5 @@
 const express = require("express");
-const { check, validationResult } = require("express-validator");
+const { handleErrors } = require("./middlewares");
 const UsersRepo = require("../repositories/users.js");
 const signupTemplate = require("../views/admin/auth/sign-up.js");
 const signinTemplate = require("../views/admin/auth/sign-in.js");
@@ -19,15 +19,12 @@ router.get("/sign-in", (req, res) => {
 router.post(
   "/sign-in",
   [requireEmailExist, requireValidPasswordForUser],
+  handleErrors(signinTemplate),
   async (req, res) => {
-    const errors = validationResult(req);
     // if (validation.errors.length > 0) {
     // return res.send(signinTemplate({ req, validation }));
     // }
     // console.log(errors.isEmpty());
-    if (!errors.isEmpty()) {
-      return res.send(signinTemplate(errors)); //now you pass the error to print it
-    }
 
     const { email } = req.body;
 
@@ -54,14 +51,10 @@ router.get("/sign-up", (req, res) => {
 router.post(
   "/sign-up",
   [requireEmail, requirePassword, requirePasswordConfirmatio],
+  handleErrors(signupTemplate),
   async (req, res) => {
-    const errors = validationResult(req);
-    console.log(errors);
-    if (!errors.isEmpty()) {
-      return res.send(signupTemplate({ req, errors })); //now you pass the error to print it
-    }
     //get access to email,confirmPassword,password
-    const { email, password, passwordConfirmation, username } = req.body;
+    const { email, password, username } = req.body;
 
     // if (!password || !email || !passwordConfirmation || !username) {
     //   console.log("user not fill all info");
@@ -78,7 +71,7 @@ router.post(
 );
 // ------------------------------------sgin out ------------------------
 router.get("/signout ", (req, res) => {
-  req.session = null;
+  req.session = null; //we clear the coockies
   res.send(`<h1>now you are signout -_-</h1>
     <botton><a href="/">home page</a></button>`);
 });

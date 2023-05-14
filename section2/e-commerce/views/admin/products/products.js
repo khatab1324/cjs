@@ -1,16 +1,14 @@
 const layout = require("../layout");
-const getError = (errors, prop) => {
-  // prop === 'email' || 'password'
-  try {
-    return errors.mapped()[prop].msg;
 
-    //errors.mapped its object that have email password passwordConfirmation and there msg and if you want more info 394
-  } catch (err) {
-    //because if error not exist in like email that will give us error
-    return "";
-  }
-};
-module.exports = (errors) => {
+module.exports = ({ products }) => {
+  const renderedProducts = products
+    .map((product) => {
+      return `
+<div>${product.productName}</div>
+`;
+    })
+    .join("");
+
   return layout({
     content: `
     <!DOCTYPE html>
@@ -95,13 +93,13 @@ module.exports = (errors) => {
         <main>
           <section class="product">
             <img src= alt="Product Image">
-            <h2>Product Title</h2>
+            <h2>${renderedProducts}</h2>
             <p>Product Description</p>
             <button>Add to Cart</button>
           </section>
     
           
-            </section>
+          
             </main>
             
               </body>

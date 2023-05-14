@@ -59,8 +59,11 @@ module.exports = {
         throw new Error("Invalid password");
       }
     }),
-  requireProductName: check("product-name").trim().isCurrency(),
-  requirProductPrice: check("product-price")
+  requireProductName: check("productName")
+    .trim()
+    .isLength({ min: 1, max: 40 })
+    .withMessage("enter value"),
+  requirProductPrice: check("productPrice")
     .trim()
     .toFloat() //because always the server convert the number to sting , the float make it number
     .isFloat({ min: 1 }) //this check are we have number
