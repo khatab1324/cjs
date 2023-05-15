@@ -67,6 +67,12 @@ module.exports = ({ content }) => {
         background-color: #0077ff;
         transform: translateX(-10px);
       }
+      .centered {
+        display: flex ;
+        justify-content: center;
+        align-items: center;
+       
+      }
     </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
         <link href="/css/main.css" rel="stylesheet">

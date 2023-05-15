@@ -10,12 +10,12 @@ const getError = (errors, prop) => {
     return "";
   }
 };
-module.exports = (errors) => {
+module.exports = ({ errors }) => {
   return layout({
     content: `
       <div>
         <form method="POST">
-          <input name="email" placeholder="email" />
+          <input name="email" placeholder="email"/>
           <p class="help is-danger">${getError(errors, "email")}</p>
           <input name="password" placeholder="password" />
           <p class="help is-danger">${getError(errors, "password")}</p>

@@ -7,6 +7,8 @@ const adminPage = require("../adimin-pages/adminPage");
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true })); // here the laibary
+// urlencoded this laibary alowe me to access for information that exist in the url
+// you should know it doesn't work with img or (upload file)
 app.use(
   cookieSession({
     keys: ["holle people"], //This keys property is used to encrypt all the information that is stored inside the cookie because it very bad if the user can play with it and make him self another one  but with key not be able to decipher it or let alone make any changes to the information stored inside there just

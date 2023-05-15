@@ -30,6 +30,7 @@ router.post(
 
     const user = await UsersRepo.getOneBy({ email });
     if (email === "admin@admin.com") {
+      req.session.userId = user.id;
       res.redirect("/admin");
     }
     if (user) {
@@ -70,7 +71,7 @@ router.post(
   }
 );
 // ------------------------------------sgin out ------------------------
-router.get("/signout ", (req, res) => {
+router.get("/sign-out", (req, res) => {
   req.session = null; //we clear the coockies
   res.send(`<h1>now you are signout -_-</h1>
     <botton><a href="/">home page</a></button>`);

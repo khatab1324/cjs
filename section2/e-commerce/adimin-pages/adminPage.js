@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 router.get("/admin", (req, res) => {
+  if (!req.session.userId) {
+    return res.redirect("/sign-in");
+  }
   res.send(` <!DOCTYPE html>
     <html>
       <head>
@@ -48,7 +51,7 @@ router.get("/admin", (req, res) => {
       </head>
       <body>
       </div>
-      <button><i><a href="/signout">sign-out</a></i></button>
+      <button><i><a href="/sign-out">sign-out</a></i></button>
         </body>
        <h1>welcome bake admin ^__^</h1>
     <div>
