@@ -4,8 +4,9 @@ const cookieSession = require("cookie-session");
 const authRouter = require("../adimin-pages/auth");
 const productsRouter = require("../adimin-pages/products");
 const adminPage = require("../adimin-pages/adminPage");
-const app = express();
-
+const mainpage = require("../views/admin/userpage/main");
+const cartRouter = require("./cart");
+const app = express(mainpage);
 app.use(bodyParser.urlencoded({ extended: true })); // here the laibary
 // urlencoded this laibary alowe me to access for information that exist in the url
 // you should know it doesn't work with img or (upload file)
@@ -17,13 +18,15 @@ app.use(
 app.use(authRouter); //this to use router that we add to auth.js file
 app.use(productsRouter); //this to use router that we add to products.js file
 app.use(adminPage);
+app.use(mainpage);
+app.use(cartRouter);
 app.use(express.static(__dirname)); //to use dirname
 app.use(express.static("public"));
 // app.use(express.static("files"));
 
 // ---------------------------- main page -----------------------
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/" + "main.html"); //uplaod the file
+  res.send();
 });
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/" + "navbar.css"); //uplaod the file

@@ -26,9 +26,10 @@ module.exports = () => {
        
       </head>
       <body>
-      <h1 class="added-product">Product added!</h1>      <script>
+      <h1 class="added-product">Product added!</h1>     
+       <script>
        setTimeout(function () {
-         window.location.href = "/"; // Redirect to home page
+         window.location.href = "/admin"; // Redirect to home page
        }, 2000); // 2 second delay
      </script>
               </body>

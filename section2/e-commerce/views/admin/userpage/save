@@ -1,0 +1,143 @@
+module.exports = ({ getProducts }) => {
+  const renderProduct = getProducts
+    .map((product) => {
+      return `
+    <li>${product.productName} - ${product.productPrice}</li>
+    `;
+    })
+    .join("");
+  return `<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <script
+        src="https://kit.fontawesome.com/805e959fd5.js"
+        crossorigin="anonymous"
+      ></script>
+      <style>
+      body{
+        margin: 0;
+    }
+    
+    #navbar{
+        display:  inline-block;
+        width: 100%;
+        height: 60px;
+        background-color: rgb(230, 227, 227);
+        display: flex;
+        position: fixed;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .logo{
+        border-radius:50%; 
+        width: 60px;
+        height: 60px;
+        display:inline-block ;
+        position: relative;
+        left: 50px;
+        
+    }
+    .links{
+        position: relative;
+        right: 20%;
+        
+    }
+    .li1{
+        display: inline-block ;
+        margin-left:20px ;
+        
+    }
+    .links1{
+        
+        font-size: 23px;
+        text-decoration: none;
+        color: rgb(0, 0, 0);
+        display: flex ;
+        justify-content: center;
+        padding: 5px;
+    }
+    .links1:hover{
+        background-color: rgb(0, 0, 0);
+       
+        color: aliceblue;
+        border-radius:20px ;
+    }
+    
+    #helppingUser{
+        width: 180px;
+        display: flex;
+        
+        align-items: center;
+        justify-content: space-between;
+    }
+    .sign-in{
+        
+        
+        font-size: 30px;
+        text-decoration: none;
+        color: #2f6294;
+        padding: 10px;
+    }
+    .sign:hover
+    {
+    
+        border-radius: 15px;
+        background-color: #00a6ff;
+        transition: background-color 0.7s ;
+    }   
+    .sign-in:hover{
+        color: rgb(255, 255, 255);
+        transition: color 1s;
+    
+    }
+.product{
+    font-size: 23px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    display: inline-block ;
+    justify-content: center;
+    padding: 50px;
+   
+}
+    
+      </style>
+      <title>phone store</title>
+    </head>
+    <body>
+      <header class="header"></header>
+      <nav id="navbar">
+        <div>
+          <img
+            class="logo"
+            src="phone-logo-icon-vector-isolated_717577-56.avif"
+            alt="smart-phone-store-logo"
+          />
+        </div>
+        <ul class="links">
+          <li class="li1"><a class="links1" href="#">shop</a></li>
+          <li class="li1"><a class="links1" href="#">mobile</a></li>
+          <li class="li1"><a class="links1" href="#">smart Thing</a></li>
+        </ul>
+        <div id="helppingUser">
+          <i class="fas fa-search"></i>
+          <i class="fa-sharp fa-solid fa-cart-shopping"></i>
+          <div class="sign">
+            <a class="sign-in" href="sign-in">sign in</a>
+          </div>
+        </div>
+      </nav>
+     
+      <main>
+       <ul class='product'>
+      ${renderProduct}
+      </ul>
+      </main>
+      <footer></footer>
+    </body>
+  </html>
+  
+  `;
+};

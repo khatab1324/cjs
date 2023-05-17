@@ -6,13 +6,8 @@ module.exports = ({ content }) => {
       <style>
       /* Form styles */
       form {
-        max-width: 500px;
-        height: 950px;
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+         
+
       }
 
       input {
@@ -73,6 +68,7 @@ module.exports = ({ content }) => {
         align-items: center;
        
       }
+      
     </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
         <link href="/css/main.css" rel="stylesheet">
