@@ -1,10 +1,10 @@
 const layout = require("../views/admin/layout");
-let price = 0;
+let totalPrice = 0;
 module.exports = ({ items }) => {
   const renderedItems = items
     .map((item) => {
-      price += item.product.productPrice * item.quantity;
-      console.log(price);
+      totalPrice += item.product.productPrice * item.quantity;
+
       return `
         <div class="cart-item message">
           <h3 class="subtitle">${item.product.productName}</h3>
@@ -16,7 +16,8 @@ module.exports = ({ items }) => {
               $${item.product.productPrice * item.quantity}
             </div>
             <div class="remove">
-              <form class="DeleteForm" method="POST">
+              <form class="DeleteForm" method="POST" action="/cart/products/delete" >
+              <input hidden value="${item.id}" name="itemId" />
                 <button class="button is-danger">                  
                   <span class="icon is-small">
                     <i class="fas fa-times"></i>
@@ -44,13 +45,14 @@ module.exports = ({ items }) => {
               <div class="message-header">
                 Total
               </div>
-              <h1 class="title">$${price}</h1>
+              <h1 class="title">$${totalPrice}</h1>
               <button class="button is-primary">Buy</button>
             </div>
           </div>
           <div class="column"></div>
         </div>
       </div>
+      ${(totalPrice = 0)}
     `,
   });
 };

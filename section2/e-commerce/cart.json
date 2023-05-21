@@ -15,26 +15,30 @@
   {
     "items": [
       {
+        "id": "3e6bbb2d",
+        "quantity": 3
+      },
+      {
         "id": "41f00292",
-        "quantity": 2
+        "quantity": 3
+      },
+      {
+        "id": "2acb0658",
+        "quantity": 3
       },
       {
         "id": "145f97a0",
         "quantity": 1
       },
       {
-        "id": "3e6bbb2d",
-        "quantity": 1
-      },
-      {
-        "id": "2acb0658",
-        "quantity": 1
-      },
-      {
-        "id": "ad71973c",
+        "id": "8aebec98",
         "quantity": 1
       }
     ],
     "id": "e887d7df"
+  },
+  {
+    "items": [],
+    "id": "0a806f6c"
   }
 ]
