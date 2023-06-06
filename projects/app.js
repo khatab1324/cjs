@@ -20,6 +20,55 @@ class Player {
     ctx.fill();
   }
 }
-const firstPlayer = new Player(innerWidth / 2, innerHeight / 2, 50, "red");
 
-firstPlayer.draw();
+// ============================creat projectile==================
+class Projectile {
+  constructor(x, y, raduis, color, vilocity) {
+    //vilocity becuase we know the obj is moving
+    this.x = x;
+    this.y = y;
+    this.raduis = raduis;
+    this.color = color;
+    this.vilocity = vilocity;
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.raduis, 0, Math.PI * 2); //for draw circal
+    ctx.fillStyle = this.color;
+    ctx.fill(); //fill the circal
+  }
+  update() {
+    this.draw(); //now we update the draw inside this proprity
+    this.x = this.x + this.vilocity.x;
+    this.y = this.y + this.vilocity.y;
+  }
+}
+//================================animation ==================================
+function animate() {
+  requestAnimationFrame(animate); //now it loop over and over ...
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  firstPlayer.draw(); //to draw the player after clear all canves
+  projectiles.forEach((projectile) => {
+    projectile.update();
+  });
+}
+
+const firstPlayer = new Player(canvas.width / 2, canvas.height / 2, 50, "red");
+
+const projectiles = [];
+addEventListener("click", (event) => {
+  // =============calculate the angle that where the projectile should go ,and that depend where you press
+  const angle = Math.atan2(
+    event.clientY - canvas.height / 2,
+    event.clientX - canvas.width / 2
+  );
+  console.log(angle);
+  projectiles.push(
+    new Projectile(canvas.width / 2, canvas.height / 2, 15, "blue", {
+      //this vilacity
+      x: Math.cos(angle),
+      y: Math.sin(angle),
+    })
+  );
+});
+animate();
