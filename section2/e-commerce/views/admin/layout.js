@@ -68,7 +68,20 @@ module.exports = ({ content }) => {
         align-items: center;
        
       }
-      
+      .middle{
+        height:100vh;
+       
+      }
+      .box{
+        width:500px;
+        
+        margin: 0 auto;
+        padding:200px;
+        text-align: center;
+        background-color: #f2f2f2;
+        border: 1px solid #ccc;
+        border-radius: 4px;  
+      }
     </style>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
         <link href="/css/main.css" rel="stylesheet">

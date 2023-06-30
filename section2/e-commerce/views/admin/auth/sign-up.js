@@ -17,7 +17,8 @@ module.exports = ({ req, errors }) => {
   //errors will be undefine but it enter the if statment that I pass the error it will define
   return layout({
     content: `
-    <div>
+    <div class="middle centered">
+    <div class="box">
       <form method="POST">
       <input type="text" name="username" placeholder="username" />
         <input name="email" placeholder="email" />
@@ -31,6 +32,7 @@ module.exports = ({ req, errors }) => {
         )}</p>
         <button>Sign Up</button>
       </form>
+      </div>
     </div>
   `,
   });

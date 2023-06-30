@@ -13,16 +13,18 @@ const getError = (errors, prop) => {
 module.exports = ({ errors }) => {
   return layout({
     content: `
-      <div>
-        <form method="POST">
-          <input name="email" placeholder="email"/>
-          <p class="help is-danger">${getError(errors, "email")}</p>
-          <input name="password" placeholder="password" />
-          <p class="help is-danger">${getError(errors, "password")}</p>
-          <button>Sign In</button>
-          <a href="/sign-up" class="transition">don't you have account</a>
-        </form>
-      </div>
+    <div class="middle centered">
+    <div class="box">
+    <form method="POST">
+      <input name="email" placeholder="email"/>
+      <p class="help is-danger">${getError(errors, "email")}</p>
+      <input name="password" placeholder="password" />
+      <p class="help is-danger">${getError(errors, "password")}</p>
+      <button>Sign In</button>
+      <a href="/sign-up" class="transition">don't you have account</a>
+    </form>
+    </div>
+  </div>
     `,
   });
 };

@@ -1,4 +1,5 @@
 const layout = require("../layout");
+
 const getError = (errors, prop) => {
   // prop === 'email' || 'password'
   try {
@@ -18,13 +19,18 @@ module.exports = ({ errors }) => {
   <head>
     <title>Add Product</title>
     <style>
-    body {
+    .outerContainer{
       background-color: #f2f2f2;
       display: flex;
       align-items: center;
       justify-content: center;
       height: 100vh;
       margin: 0;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Add this line to center-align the form content */
     }
 
     .container {
@@ -96,8 +102,11 @@ module.exports = ({ errors }) => {
   </style>
   </head>
   <body>
+
+  <div class="outerContainer">
+  
     <div class="container">
-      <h1>Add Product</h1>
+      
       <form method="POST" enctype='multipart/form-data'>
         <label for="product-name">Product Name:</label>
         <input type="text" id="productName" name="productName">
@@ -113,6 +122,7 @@ module.exports = ({ errors }) => {
         <input  id="product-image" name="product-image"type="file">
         <input type="submit" value="Add Product">
       </form>
+      </div>
     </div>
   </body>
 </html>
