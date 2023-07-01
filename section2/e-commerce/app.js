@@ -6,7 +6,7 @@ const productsRouter = require("./route/adimin-pages/products");
 const adminPage = require("./route/adimin-pages/adminPage");
 const mainpage = require("./views/admin/userpage/main");
 const cartRouter = require("./route/userpage/cart");
-const app = express(mainpage);
+const app = express();
 app.use(bodyParser.urlencoded({ extended: true })); // here the laibary
 // urlencoded this laibary alowe me to access for information that exist in the url
 // you should know it doesn't work with img or (upload file)
@@ -25,12 +25,6 @@ app.use(express.static("public"));
 // app.use(express.static("files"));
 
 // ---------------------------- main page -----------------------
-app.get("/", (req, res) => {
-  res.send();
-});
-app.get("/", function (req, res) {
-  res.sendFile(__dirname + "/" + "navbar.css"); //uplaod the file
-});
 
 // this to collect all the data before use any one of them
 // const bodyParser = (req, res, next) => {
@@ -55,6 +49,6 @@ app.get("/", function (req, res) {
 
 //we will use laibary that do the same thing above
 
-app.listen(4000, () => {
+app.listen(5000, () => {
   console.log("ah i listening");
 });

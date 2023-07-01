@@ -1,8 +1,8 @@
 const layout = require("../layout");
-
 // this func will check if there error
 const getError = (errors, prop) => {
   // prop === 'email' || 'password' || 'passwordConfirmation'
+  console.log(errors);
   try {
     return errors.mapped()[prop].msg;
 
@@ -21,6 +21,7 @@ module.exports = ({ req, errors }) => {
     <div class="box">
       <form method="POST">
       <input type="text" name="username" placeholder="username" />
+      <p class="help is-danger">${getError(errors, "username")}</p>
         <input name="email" placeholder="email" />
           <p class="help is-danger">${getError(errors, "email")}</p>
         <input name="password" placeholder="password" />

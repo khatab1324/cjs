@@ -85,6 +85,12 @@ module.exports = ({ content }) => {
     transition: color 1s;
 
 }
+.crop {
+  height: 300px;
+  width: 400px;
+ 
+ }
+ 
 </style>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
@@ -93,50 +99,7 @@ module.exports = ({ content }) => {
   </head>
 
   <body>
-    <header>
-      
-      
-      <nav class="navbar navbar-bottom">
-      
-        <div class="container navbar-container">
-          <div>
-         
-          
-            <ul class="links">
-            <a href="/">
-            <img
-            class="logo"
-            src="https://img.freepik.com/premium-vector/phone-logo-icon-vector-isolated_717577-56.jpg"
-            alt="smart-phone-store-logo"/></a>
-      <li class="li1"><a class="links1" href="#">shop</a></li>
-      <li class="li1"><a class="links1" href="#">mobile</a></li>
-      <li class="li1"><a class="links1" href="#">smart Thing</a></li>
-    </ul>
-    
-     
-      <i class="fa-sharp fa-solid fa-cart-shopping"></i>
-      
-      
-    </div>
-    </div>
-          
-          <div class="navbar-item">
-            <div class="navbar-buttons">
-              <div class="navbar-item">
-                <a href="/"> <i class="fas fa-search"></i></a>
-              </div>
-              <div class="navbar-item">
-                <a href="/cart"><i class="fa fa-shopping-cart"></i> Cart</a>
-              </div>
-              <div class="sign">
-        <a class="sign-in" href="sign-in">sing in</a>
-        </div>
-            </div>
-          </div>
-        </div>
-      </nav>
-      
-    </header>
+   
 
     ${content}
     <nav class="navbar navbar-top">

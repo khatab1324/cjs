@@ -1,5 +1,5 @@
 const express = require("express");
-
+const handleError = require("../adimin-pages/utils/handleError");
 const cartRepo = require("../../repositories/cart");
 const productsRepo = require("../../repositories/repo-products");
 
@@ -7,42 +7,45 @@ const cartShowTemplate = require("../../views/admin/userpage/show");
 const router = express.Router();
 
 // receive a post req
-router.post("/cart/products", async (req, res) => {
-  let cart;
-  // figure out the cart !
-  if (!req.session.cartId) {
-    // we don't have a cart , we need to create one,
-    // ...and store the cart id on the req.session.cardId
-    // property
-    cart = await cartRepo.create({ items: [] });
-    // when you call cartRepo inside it , it creat random id ok
-    req.session.cartId = cart.id;
-    console.log("butt me");
-  } else {
-    // we have cart! lets get it form reporsitry
-    cart = await cartRepo.getOne(req.session.cartId);
-    console.log("noh not again");
-    const existingItem = cart.items.find(
-      (item) => item.id === req.body.productId
-    );
-
-    // Either increment quantity for existing product
-    // OR add new product to item cart
-    if (existingItem) {
-      // increment quantity save cart
-      existingItem.quantity++;
+router.post(
+  "/cart/products",
+  handleError(async (req, res, next) => {
+    let cart;
+    // figure out the cart !
+    if (!req.session.cartId) {
+      // we don't have a cart , we need to create one,
+      // ...and store the cart id on the req.session.cardId
+      // property
+      cart = await cartRepo.create({ items: [] });
+      // when you call cartRepo inside it , it creat random id ok
+      req.session.cartId = cart.id;
+      console.log("butt me");
     } else {
-      // add new id to item array
-      cart.items.push({ id: req.body.productId, quantity: 1 });
-    } //you make the change for cart.item
-    await cartRepo.update(cart.id, {
-      items: cart.items,
-    });
-  }
-  console.log(cart);
+      // we have cart! lets get it form reporsitry
+      cart = await cartRepo.getOne(req.session.cartId);
+      console.log("noh not again");
+      const existingItem = cart.items.find(
+        (item) => item.id === req.body.productId
+      );
 
-  res.redirect("/");
-});
+      // Either increment quantity for existing product
+      // OR add new product to item cart
+      if (existingItem) {
+        // increment quantity save cart
+        existingItem.quantity++;
+      } else {
+        // add new id to item array
+        cart.items.push({ id: req.body.productId, quantity: 1 });
+      } //you make the change for cart.item
+      await cartRepo.update(cart.id, {
+        items: cart.items,
+      });
+    }
+    console.log(cart);
+
+    res.redirect("/cart");
+  })
+);
 // receive  a GET request to show all item in cart
 router.get("/cart", async (req, res) => {
   let cart;
@@ -69,6 +72,9 @@ router.post("/cart/products/delete", async (req, res) => {
   await cartRepo.update(req.session.cartId, { items });
 
   res.redirect("/cart");
+});
+router.use((err, req, res, next) => {
+  res.send("if you don't know there is error!");
 });
 
 module.exports = router;

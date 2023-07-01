@@ -6,12 +6,13 @@ const router = express.Router();
 const renderedProducts = require("./renderProduct");
 
 router.get("/", async (req, res) => {
-  const email = "katabemad132456@gmail.com";
-  const user = await UsersRepo.getOneBy({ email });
-  console.log(user.id);
-  const layout = require("./layoutForMainPage");
+  let user;
+  const { email } = req.session;
+
+  if (email) user = await UsersRepo.getOneBy({ email });
+
   const getProducts = await productsRepo.getAll();
-  res.send(renderedProducts({ getProducts }));
+  res.send(renderedProducts({ getProducts, user }));
 });
 
 module.exports = router;

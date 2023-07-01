@@ -2,14 +2,37 @@ const { check } = require("express-validator");
 const UsersRepo = require("../../repositories/users");
 
 module.exports = {
+  requirUsername: [
+    check("username")
+      .exists()
+      .withMessage("Username is required")
+      .isLength({ min: 4 })
+      .withMessage("The username should have at least 4 characters")
+      .isString() //it doesn't work
+      .withMessage("The username must be a string")
+      .custom(async (username) => {
+        //this from chat gpt that check the username is string
+        if (!/^[a-zA-Z]+$/.test(username)) {
+          throw new Error(
+            "The username must contain only alphabetic characters"
+          );
+        }
+        const existUsername = await UsersRepo.getOneBy({ username });
+        console.log(existUsername);
+        if (existUsername) {
+          throw new Error("there user have the same name");
+        }
+        return true;
+      }),
+  ],
   requireEmail: check("email")
     .trim()
     .normalizeEmail()
     .isEmail()
     .withMessage("Must be vaild email")
     .custom(async (email) => {
-      const existingUser = await UsersRepo.getOneBy({ email });
-      if (existingUser) {
+      const existingEmail = await UsersRepo.getOneBy({ email });
+      if (existingEmail) {
         throw new Error("the email is already exist");
       }
     }),
@@ -21,7 +44,7 @@ module.exports = {
 
   requirePasswordConfirmatio: check("passwordConfirmation")
     .trim()
-    .isLength({ min: 8, max: 20 })
+    .isLength({ min: 8, max: 20 }) //the withMessage linked with custom in express-validation
     .withMessage("password must match ^__-")
     .custom((passwordConfirmation, { req }) => {
       //I put req becuase I need password and check have just one but , this way made by express-valdi....
