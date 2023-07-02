@@ -49,7 +49,7 @@ router.post(
   async (req, res) => {
     //get access to email,confirmPassword,password
     const { email, password, username } = req.body;
-
+    console.log(req.body);
     // if (!password || !email || !passwordConfirmation || !username) {
     //   console.log("user not fill all info");
     //   return res.send("plz fill all the info ^__^");
