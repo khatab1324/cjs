@@ -48,7 +48,7 @@ app.use(express.static("public"));
 //
 
 //we will use laibary that do the same thing above
-
-app.listen(5000, () => {
-  console.log("ah i listening");
+const port = 5000;
+app.listen(port, () => {
+  console.log(`ah i listening on port ${port}`);
 });
