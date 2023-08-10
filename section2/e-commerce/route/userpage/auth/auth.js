@@ -21,7 +21,7 @@ router.get("/sign-in", (req, res) => {
 router.post(
   "/sign-in",
   [requireEmailExist, requireValidPasswordForUser],
-  handleErrors(signinTemplate),
+  handleErrors(signinTemplate), //here we use signinTemplate not signinTemplate() why? becuase the signinTemplate is refrence
   async (req, res) => {
     const { email } = req.body;
     const user = await UsersRepo.getOneBy({ email });
