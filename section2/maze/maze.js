@@ -256,7 +256,6 @@ nextlevel.addEventListener("click", (event) => {
   levelNumber();
 });
 newGame.addEventListener("click", (event) => {
-  console.log("fuck me");
   localStorage.clear();
   location.reload();
 });

@@ -1,3 +1,4 @@
+//                 done
 const warriorsGames = [
   {
     awayTeam: {
@@ -106,3 +107,14 @@ for (let game of warriorsGames) {
   ulContainer.appendChild(gameLi);
 }
 document.body.append(ulContainer);
+
+const ulContainer2 = document.querySelector("ul");
+warriorsGames.forEach((obj, index) => {
+  let { homeTeam, awayTeam } = obj;
+  let gameLi = document.createElement("li");
+  gameLi.innerHTML = `${homeTeam.team} vs ${awayTeam.team} ths score ${homeTeam.points}-${awayTeam.points}`;
+  homeTeam.isWinner
+    ? gameLi.classList.add("win")
+    : gameLi.classList.add("loss");
+  ulContainer2.appendChild(gameLi);
+});
